@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity() {
             val phoneFilled = etPhone?.text.toString()
             val emailFilled = etEmail?.text.toString()
 
-            btn?.setEnabled(!nameFilled.isEmpty() && !phoneFilled.isEmpty() && !emailFilled.isEmpty())
+            btn?.setEnabled(!nameFilled.isEmpty() && !phoneFilled.isEmpty() && !emailFilled.isEmpty() && emailFilled.isValidEmail())
         }
 
         override fun afterTextChanged(s: Editable?) {
@@ -44,12 +45,16 @@ class MainActivity : AppCompatActivity() {
 
         etName = findViewById(R.id.editTextTextPersonName)
         etPhone = findViewById(R.id.editTextPhone)
+        etEmail = findViewById(R.id.editTextEmail)
         btn = findViewById(R.id.button)
         btnR1 = findViewById(R.id.radioButton)
         btnR2 = findViewById(R.id.radioButton2)
 
         this.etName?.addTextChangedListener(textWatcher)
         this.etPhone?.addTextChangedListener(textWatcher)
+        this.etEmail?.addTextChangedListener(textWatcher)
+
+
 
         btn?.setOnClickListener {
             intentToAnotherScreen.putExtra(NAME,etName?.text.toString())
@@ -59,7 +64,12 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this@MainActivity, "You are going to the second screen", Toast.LENGTH_LONG).show()
         }
 
+
+
     }
+
+    fun CharSequence?.isValidEmail() = !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
+
 }
 
 /*

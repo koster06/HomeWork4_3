@@ -11,7 +11,7 @@ class MainActivity2 : AppCompatActivity() {
             setContentView(R.layout.activity_main2)
 
             val name = intent?.getStringExtra(NAME)
-            val phone = intent?.getStringExtra(PHONE)?.toInt()
+            var phone = intent?.getStringExtra(PHONE)?.toLong() // инт короткий для номера
             val email = intent?.getStringExtra(EMAIL)
 
             val textView: TextView = findViewById(R.id.textView)
