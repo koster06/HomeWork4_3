@@ -8,8 +8,9 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Patterns
 import android.widget.Button
-import android.widget.DatePicker
 import android.widget.EditText
+import android.widget.RadioGroup
+import android.widget.TableLayout
 import android.widget.Toast
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -18,6 +19,7 @@ const val NAME = "name"
 const val PHONE = "phone"
 const val EMAIL = "email"
 const val DATE = "date"
+const val SEX = "sex"
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     var btnR1: Button? = null
     var btnR2: Button? = null
     var btn: Button? = null
+    var btn2: Button? = null
 
     private val textWatcher: TextWatcher = object: TextWatcher {
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
@@ -35,16 +38,19 @@ class MainActivity : AppCompatActivity() {
             val nameFilled = etName?.text.toString()
             val phoneFilled = etPhone?.text.toString()
             val emailFilled = etEmail?.text.toString()
-            val dateFilled = etDate?.text.toString() // виджет календаря открывается только после второго клика, не знаю почему, может в xml нужно что-то поправить
+            val dateFilled = etDate?.text.toString()
 
             btn?.setEnabled(!nameFilled.isEmpty() && !phoneFilled.isEmpty() && !emailFilled.isEmpty() && emailFilled.isValidEmail() && !dateFilled.isEmpty())
+            btn2?.setEnabled(!nameFilled.isEmpty() && !phoneFilled.isEmpty() && !emailFilled.isEmpty() && emailFilled.isValidEmail() && !dateFilled.isEmpty())
+
         }
+
 
         override fun afterTextChanged(s: Editable?) {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) { // виджет календаря открывается только после второго клика, не знаю почему, может в xml нужно что-то поправить
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -56,14 +62,17 @@ class MainActivity : AppCompatActivity() {
             writeLabel(myCalendar)
         }
         val intentToAnotherScreen = Intent(applicationContext, MainActivity2::class.java)
+        val intent2 = Intent(this, MainActivity3::class.java)
 
         etName = findViewById(R.id.editTextTextPersonName)
         etPhone = findViewById(R.id.editTextPhone)
         etEmail = findViewById(R.id.editTextEmail)
         etDate = findViewById(R.id.editTextDate)
         btn = findViewById(R.id.button)
+        btn2 = findViewById(R.id.button2)
         btnR1 = findViewById(R.id.radioButton)
         btnR2 = findViewById(R.id.radioButton2)
+        val radioGroup: RadioGroup = findViewById(R.id.radioGroup)
 
         this.etName?.addTextChangedListener(textWatcher)
         this.etPhone?.addTextChangedListener(textWatcher)
@@ -83,7 +92,19 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this@MainActivity, "Do you fill all fields on preview screen?", Toast.LENGTH_LONG).show()
         }
 
+        btn2?.setOnClickListener {
+            intent2.putExtra(NAME,etName?.text.toString())
+            intent2.putExtra(PHONE, etPhone?.text.toString())
+            intent2.putExtra(EMAIL, etEmail?.text.toString())
+            intent2.putExtra(DATE, etDate?.text.toString())
+            startActivity(intent2)
+            Toast.makeText(this@MainActivity, "Are you crazy?", Toast.LENGTH_LONG).show()
+        }
 
+        radioGroup.setOnCheckedChangeListener { group, checkedId ->
+            if (checkedId == R.id.radioButton) intent2.putExtra("SEX", true)
+            if (checkedId == R.id.radioButton2 ) intent2.putExtra("SEX", false)
+        }
 
     }
 

@@ -5,6 +5,12 @@
     <string name="et_hint_email">Enter your email</string>
     <string name="et_hint_date">Enter your birthday</string>
     <string name="btn_name">WRITE</string>
+    <string name="btn2_name">3rd Activity</string>
     <string name="radio_btn1_name">MALE</string>
     <string name="radio_btn2_name">FEMALE</string>
+    <string name="current_pick">Текущий выбор</string>
+    <string name="color_red">Красный</string>
+    <string name="color_green">Зеленый</string>
+    <string name="color_blue">Синий</string>
+    <string name="color_gray">Серый</string>
 </resources>
