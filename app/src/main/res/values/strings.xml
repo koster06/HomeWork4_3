@@ -8,9 +8,4 @@
     <string name="btn2_name">3rd Activity</string>
     <string name="radio_btn1_name">MALE</string>
     <string name="radio_btn2_name">FEMALE</string>
-    <string name="current_pick">Текущий выбор</string>
-    <string name="color_red">Красный</string>
-    <string name="color_green">Зеленый</string>
-    <string name="color_blue">Синий</string>
-    <string name="color_gray">Серый</string>
 </resources>
